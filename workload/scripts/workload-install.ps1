@@ -5,9 +5,9 @@
 
 <#
 .SYNOPSIS
-Installs Tizen workload manifest.
+Installs Mosa workload manifest.
 .DESCRIPTION
-Installs the WorkloadManifest.json and WorkloadManifest.targets files for Tizen to the dotnet sdk.
+Installs the WorkloadManifest.json and WorkloadManifest.targets files for Mosa to the dotnet sdk.
 .PARAMETER Version
 Use specific VERSION
 .PARAMETER DotnetInstallDir
@@ -26,7 +26,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
 
-$ManifestBaseName = "Samsung.NET.Sdk.Tizen.Manifest"
+$ManifestBaseName = "Mosa.NET.Sdk.Mosa.Manifest"
 
 $LatestVersionMap = @{
     "$ManifestBaseName-6.0.100" = "7.0.101";
@@ -111,8 +111,8 @@ function Install-Pack([string]$Id, [string]$Version, [string]$Kind) {
     switch ($Kind) {
         "manifest" {
             Expand-Archive -Path $TempZipFile -DestinationPath $TempUnzipDir
-            New-Item -Path $TizenManifestDir -ItemType "directory" -Force | Out-Null
-            Copy-Item -Path "$TempUnzipDir\data\*" -Destination $TizenManifestDir -Force
+            New-Item -Path $MosaManifestDir -ItemType "directory" -Force | Out-Null
+            Copy-Item -Path "$TempUnzipDir\data\*" -Destination $MosaManifestDir -Force
         }
         {($_ -eq "sdk") -or ($_ -eq "framework")} {
             Expand-Archive -Path $TempZipFile -DestinationPath $TempUnzipDir
@@ -132,7 +132,7 @@ function Install-Pack([string]$Id, [string]$Version, [string]$Kind) {
 function Remove-Pack([string]$Id, [string]$Version, [string]$Kind) {
     switch ($Kind) {
         "manifest" {
-            Remove-Item -Path $TizenManifestDir -Recurse -Force
+            Remove-Item -Path $MosaManifestDir -Recurse -Force
         }
         {($_ -eq "sdk") -or ($_ -eq "framework")} {
             $TargetDirectory = $(Join-Path -Path $DotnetInstallDir -ChildPath "packs\$Id\$Version")
@@ -145,7 +145,7 @@ function Remove-Pack([string]$Id, [string]$Version, [string]$Kind) {
     }
 }
 
-function Install-TizenWorkload([string]$DotnetVersion)
+function Install-MosaWorkload([string]$DotnetVersion)
 {
     $VersionSplitSymbol = '.'
     $SplitVersion = $DotnetVersion.Split($VersionSplitSymbol)
@@ -178,18 +178,18 @@ function Install-TizenWorkload([string]$DotnetVersion)
 
     # Check workload manifest directory.
     $ManifestDir = Join-Path -Path $DotnetInstallDir -ChildPath "sdk-manifests" | Join-Path -ChildPath $DotnetTargetVersionBand
-    $TizenManifestDir = Join-Path -Path $ManifestDir -ChildPath "samsung.net.sdk.tizen"
-    $TizenManifestFile = Join-Path -Path $TizenManifestDir -ChildPath "WorkloadManifest.json"
+    $MosaManifestDir = Join-Path -Path $ManifestDir -ChildPath "mosa.os.sdk"
+    $MosaManifestFile = Join-Path -Path $MosaManifestDir -ChildPath "WorkloadManifest.json"
 
     # Check and remove already installed old version.
-    if (Test-Path $TizenManifestFile) {
-        $ManifestJson = $(Get-Content $TizenManifestFile | ConvertFrom-Json)
+    if (Test-Path $MosaManifestFile) {
+        $ManifestJson = $(Get-Content $MosaManifestFile | ConvertFrom-Json)
         $OldVersion = $ManifestJson.version
         if ($OldVersion -eq $Version) {
-            $DotnetWorkloadList = Invoke-Expression "& '$DotnetCommand' workload list | Select-String -Pattern '^tizen'"
+            $DotnetWorkloadList = Invoke-Expression "& '$DotnetCommand' workload list | Select-String -Pattern '^mosa'"
             if ($DotnetWorkloadList)
             {
-                Write-Host "Tizen Workload $Version version is already installed."
+                Write-Host "Mosa Workload $Version version is already installed."
                 Continue
             }
         }
@@ -211,24 +211,24 @@ function Install-TizenWorkload([string]$DotnetVersion)
     Install-Pack -Id $ManifestName -Version $Version -Kind "manifest"
 
     # Download and install workload packs.
-    $NewManifestJson = $(Get-Content $TizenManifestFile | ConvertFrom-Json)
+    $NewManifestJson = $(Get-Content $MosaManifestFile | ConvertFrom-Json)
     $NewManifestJson.packs.PSObject.Properties | ForEach-Object {
         Write-Host "Installing $($_.Name)/$($_.Value.version)..."
         Install-Pack -Id $_.Name -Version $_.Value.version -Kind $_.Value.kind
     }
 
-    # Add tizen to the installed workload metadata.
+    # Add mosa to the installed workload metadata.
     # Featured version band for metadata does NOT include any preview specifier.
     # https://github.com/dotnet/sdk/blob/main/documentation/general/workloads/user-local-workloads.md
-    New-Item -Path $(Join-Path -Path $DotnetInstallDir -ChildPath "metadata\workloads\$DotnetVersionBand\InstalledWorkloads\tizen") -Force | Out-Null
+    New-Item -Path $(Join-Path -Path $DotnetInstallDir -ChildPath "metadata\workloads\$DotnetVersionBand\InstalledWorkloads\mosa") -Force | Out-Null
     if (Test-Path $(Join-Path -Path $DotnetInstallDir -ChildPath "metadata\workloads\$DotnetVersionBand\InstallerType\msi")) {
-        New-Item -Path "HKLM:\SOFTWARE\Microsoft\dotnet\InstalledWorkloads\Standalone\x64\$DotnetTargetVersionBand\tizen" -Force | Out-Null
+        New-Item -Path "HKLM:\SOFTWARE\Microsoft\dotnet\InstalledWorkloads\Standalone\x64\$DotnetTargetVersionBand\mosa" -Force | Out-Null
     }
 
     # Clean up
     Remove-Item -Path $TempDir -Force -Recurse
 
-    Write-Host "Done installing Tizen workload $Version"
+    Write-Host "Done installing Mosa workload $Version"
 }
 
 # Check dotnet install directory.
@@ -263,18 +263,18 @@ else
 
 if (-Not $InstalledDotnetSdks)
 {
-    Write-Host "`n.NET SDK version 6 or later is required to install Tizen Workload."
+    Write-Host "`n.NET SDK version 6 or later is required to install Mosa Workload."
 }
 else
 {
     foreach ($DotnetSdk in $InstalledDotnetSdks)
     {
         try {
-            Write-Host "`nCheck Tizen Workload for sdk $DotnetSdk"
-            Install-TizenWorkload -DotnetVersion $DotnetSdk
+            Write-Host "`nCheck Mosa Workload for sdk $DotnetSdk"
+            Install-MosaWorkload -DotnetVersion $DotnetSdk
         }
         catch {
-            Write-Host "Failed to install Tizen Workload for sdk $DotnetSdk"
+            Write-Host "Failed to install Mosa Workload for sdk $DotnetSdk"
             Write-Host "$_"
             Continue
         }

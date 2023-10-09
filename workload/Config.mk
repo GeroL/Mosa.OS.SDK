@@ -28,7 +28,7 @@ endif
 
 ifeq ($(MAJOR),6)
 	DOTNET6_MANIFESTS_DESTDIR := $(MAJOR).$(MINOR).$(BAND)
-	DOTNET_MANIFESTS_DESTDIR := $(DOTNET_DESTDIR)/sdk-manifests/$(DOTNET6_MANIFESTS_DESTDIR)/samsung.net.sdk.tizen
+	DOTNET_MANIFESTS_DESTDIR := $(DOTNET_DESTDIR)/sdk-manifests/$(DOTNET6_MANIFESTS_DESTDIR)/mosa.os.sdk
 	DOTNET_VERSION_BAND := $(MAJOR).$(MINOR).$(BAND)
 else
 	ifneq ($(IS_PRERELEASE),)
@@ -36,18 +36,18 @@ else
 	else
 		DOTNET_VERSION_BAND := $(MAJOR).$(MINOR).$(MICRO)
 	endif
-	DOTNET_MANIFESTS_DESTDIR = $(DOTNET_DESTDIR)/sdk-manifests/$(DOTNET_VERSION_BAND)/samsung.net.sdk.tizen
+	DOTNET_MANIFESTS_DESTDIR = $(DOTNET_DESTDIR)/sdk-manifests/$(DOTNET_VERSION_BAND)/mosa.os.sdk
 endif
 
 
-# TIZEN_WORKLOAD_VERSION
+# MOSA_WORKLOAD_VERSION
 -include $(TMPDIR)/workload-version.config
 $(TMPDIR)/workload-version.config: $(TOP)/build/Versions.props
 	@mkdir -p $(TMPDIR)
-	@grep "<TizenWorkloadVersion>" build/Versions.props | sed -e 's/<\/*TizenWorkloadVersion>//g' -e 's/[ \t]*/TIZEN_WORKLOAD_VERSION=/' > $@
+	@grep "<MosaWorkloadVersion>" build/Versions.props | sed -e 's/<\/*MosaWorkloadVersion>//g' -e 's/[ \t]*/MOSA_WORKLOAD_VERSION=/' > $@
 
-TIZEN_VERSION_BLAME_COMMIT := $(shell git blame $(TOP)/build/Versions.props HEAD | grep "<TizenWorkloadVersion>" | sed 's/ .*//')
-TIZEN_COMMIT_DISTANCE := $(shell git log $(TIZEN_VERSION_BLAME_COMMIT)..HEAD --oneline | wc -l)
+MOSA_VERSION_BLAME_COMMIT := $(shell git blame $(TOP)/build/Versions.props HEAD | grep "<MosaWorkloadVersion>" | sed 's/ .*//')
+MOSA_COMMIT_DISTANCE := $(shell git log $(MOSA_VERSION_BLAME_COMMIT)..HEAD --oneline | wc -l)
 
 CURRENT_HASH := $(shell git log -1 --pretty=%h)
 
@@ -70,7 +70,7 @@ else
 endif
 
 ifeq ($(IS_STABLE_RELEASE_TAG), true)
-	TIZEN_WORKLOAD_VERSION_FULL := $(TIZEN_WORKLOAD_VERSION)
+	MOSA_WORKLOAD_VERSION_FULL := $(MOSA_WORKLOAD_VERSION)
 else
-	TIZEN_WORKLOAD_VERSION_FULL := $(TIZEN_WORKLOAD_VERSION)-$(PRERELEASE_VERSION).$(TIZEN_COMMIT_DISTANCE)
+	MOSA_WORKLOAD_VERSION_FULL := $(MOSA_WORKLOAD_VERSION)-$(PRERELEASE_VERSION).$(MOSA_COMMIT_DISTANCE)
 endif

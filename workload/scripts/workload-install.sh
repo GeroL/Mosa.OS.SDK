@@ -5,7 +5,7 @@
 
 #!/bin/bash -e
 
-MANIFEST_BASE_NAME="samsung.net.sdk.tizen.manifest"
+MANIFEST_BASE_NAME="mosa.os.sdk.manifest"
 MANIFEST_VERSION="<latest>"
 DOTNET_INSTALL_DIR="<auto>"
 DOTNET_TARGET_VERSION_BAND="<auto>"
@@ -58,7 +58,7 @@ while [ $# -ne 0 ]; do
             ;;
         -h|--help)
             script_name="$(basename "$0")"
-            echo "Tizen Workload Installer"
+            echo "Mosa Workload Installer"
             echo "Usage: $script_name [-v|--version <VERSION>] [-d|--dotnet-install-dir <DIR>] [-t|--dotnet-target-version-band <VERSION>]"
             echo "       $script_name -h|-?|--help"
             echo ""
@@ -134,7 +134,7 @@ if [ ! -x "$DOTNET_COMMAND" ]; then
     exit 1
 fi
 
-function install_tizenworkload() {
+function install_mosaworkload() {
     DOTNET_VERSION=$1
     IFS='.' read -r -a array <<< "$DOTNET_VERSION"
     CURRENT_DOTNET_VERSION=${array[0]}
@@ -194,10 +194,10 @@ function install_tizenworkload() {
     chmod 744 $TMPDIR/unzipped/data/*
 
     # Copy manifest files to dotnet sdk.
-    mkdir -p $SDK_MANIFESTS_DIR/samsung.net.sdk.tizen
-    cp -f $TMPDIR/unzipped/data/* $SDK_MANIFESTS_DIR/samsung.net.sdk.tizen/
+    mkdir -p $SDK_MANIFESTS_DIR/mosa.os.sdk
+    cp -f $TMPDIR/unzipped/data/* $SDK_MANIFESTS_DIR/mosa.os.sdk/
 
-    if [ ! -f $SDK_MANIFESTS_DIR/samsung.net.sdk.tizen/WorkloadManifest.json ]; then
+    if [ ! -f $SDK_MANIFESTS_DIR/mosa.os.sdk/WorkloadManifest.json ]; then
         echo "Installation is failed."
         return
     fi
@@ -210,7 +210,7 @@ function install_tizenworkload() {
         CACHE_GLOBAL_JSON="false"
     fi
     dotnet new globaljson --sdk-version $DOTNET_VERSION
-    $DOTNET_INSTALL_DIR/dotnet workload install tizen --skip-manifest-update
+    $DOTNET_INSTALL_DIR/dotnet workload install mosa --skip-manifest-update
 
     # Clean-up
     rm -fr $TMPDIR
@@ -219,7 +219,7 @@ function install_tizenworkload() {
         mv global.json.bak global.json
     fi
 
-    echo "Done installing Tizen workload $MANIFEST_VERSION"
+    echo "Done installing Mosa workload $MANIFEST_VERSION"
     echo ""
 }
 
@@ -230,11 +230,11 @@ else
 fi
 
 if [ -z "$INSTALLED_DOTNET_SDKS" ]; then
-    echo ".NET SDK version 6 or later is required to install Tizen Workload."
+    echo ".NET SDK version 6 or later is required to install Mosa Workload."
 else
     for DOTNET_SDK in $INSTALLED_DOTNET_SDKS; do
-        echo "Check Tizen Workload for sdk $DOTNET_SDK."
-        install_tizenworkload $DOTNET_SDK
+        echo "Check Mosa Workload for sdk $DOTNET_SDK."
+        install_mosaworkload $DOTNET_SDK
     done
 fi
 

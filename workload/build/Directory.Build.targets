@@ -4,7 +4,7 @@
     <PackageReference Include="Microsoft.DotNet.Arcade.Sdk" Version="$(MicrosoftDotNetBuildTasksFeedPackageVersion)" PrivateAssets="all" GeneratePathProperty="true" />
   </ItemGroup>
 
-  <Import Project="..\src\Samsung.Tizen.Build.PrepTasks\PrepTasks.targets" />
+  <Import Project="..\src\Mosa.OS.Build.PrepTasks\PrepTasks.targets" />
   <Import Project="Sdk.props" Sdk="Microsoft.DotNet.SharedFramework.Sdk" Version="$(MicrosoftDotNetBuildTasksFeedPackageVersion)" />
 
   <PropertyGroup>
@@ -13,10 +13,10 @@
   </PropertyGroup>
 
   <Target Name="_GetPackageVersion">
-    <Error Condition="'$(TizenPackVersion)' == ''" Text="TizenPackVersion property is not set." />
+    <Error Condition="'$(MosaPackVersion)' == ''" Text="MosaPackVersion property is not set." />
     <PropertyGroup>
-      <PackageVersion Condition="'$(TizenVersionHash)' != ''">$(TizenPackVersion)+sha.$(TizenVersionHash)</PackageVersion>
-      <PackageVersion Condition="'$(TizenVersionHash)' == ''">$(TizenPackVersion)</PackageVersion>
+      <PackageVersion Condition="'$(MosaVersionHash)' != ''">$(MosaPackVersion)+sha.$(MosaVersionHash)</PackageVersion>
+      <PackageVersion Condition="'$(MosaVersionHash)' == ''">$(MosaPackVersion)</PackageVersion>
     </PropertyGroup>
   </Target>
 

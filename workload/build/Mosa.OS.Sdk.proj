@@ -1,0 +1,57 @@
+<!--
+***********************************************************************************************
+Mosa.OS.Sdk.proj
+
+This project file is used to create the Mosa.OS.Sdk NuGet, which is the
+core workload sdk pack imported by the Mosa.NET.Sdk.Mosa.
+***********************************************************************************************
+-->
+<Project Sdk="Microsoft.Build.NoTargets">
+
+  <PropertyGroup>
+    <PackageId>Mosa.OS.Sdk</PackageId>
+    <Description>The MSBuild targets for buliding Mosa .NET projects</Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <BeforePack>
+      _GetPackageVersion;
+      _GenerateSdkContent;
+      $(BeforePack);
+    </BeforePack>
+  </PropertyGroup>
+
+  <Target Name="_GenerateSdkContent" DependsOnTargets="_GetBuildTasksAssets;_GetLicense">
+    <PropertyGroup>
+      <_SDKSourceDirectory>$(_ProjectSourceDirectory)Mosa.OS.Sdk\</_SDKSourceDirectory>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <_PackageFiles Include="$(_SDKSourceDirectory)certificate\*" PackagePath="certificate" />
+      <_PackageFiles Include="$(_SDKSourceDirectory)Sdk\*" PackagePath="Sdk" />
+      <_PackageFiles Include="$(_SDKSourceDirectory)tools\*" PackagePath="tools" />
+      <_PackageFiles Include="$(_SDKSourceDirectory)targets\*" PackagePath="targets" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="_GetBuildTasksAssets">
+    <MSBuild
+      Targets="Restore"
+      Projects="$(_ProjectSourceDirectory)Mosa.OS.Build.Tasks\Mosa.OS.Build.Tasks.csproj"
+      Properties="Configuration=$(Configuration)"
+    />
+    <MSBuild
+      Projects="$(_ProjectSourceDirectory)Mosa.OS.Build.Tasks\Mosa.OS.Build.Tasks.csproj"
+      Properties="Configuration=$(Configuration)"
+    />
+
+    <PropertyGroup>
+      <BuildTasksOutputPath>$(_ProjectSourceDirectory)Mosa.OS.Build.Tasks\bin\$(Configuration)\netstandard2.0\</BuildTasksOutputPath>
+    </PropertyGroup>
+    <ItemGroup>
+      <_PackageFiles Include="$(BuildTasksOutputPath)Mosa.OS.Build.Tasks.dll" PackagePath="tools" />
+      <_PackageFiles Include="$(BuildTasksOutputPath)BouncyCastle.Crypto.dll" PackagePath="tools" />
+    </ItemGroup>
+  </Target>
+
+</Project>

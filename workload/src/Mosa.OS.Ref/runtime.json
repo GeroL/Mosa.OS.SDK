@@ -1,0 +1,147 @@
+{
+  "runtimes": {
+    "mosa": {
+      "#import": [
+        "linux"
+      ]
+    },
+    "mosa-armel": {
+      "#import": [
+        "mosa",
+        "linux-armel"
+      ]
+    },
+    "mosa-x86": {
+      "#import": [
+        "mosa",
+        "linux-x86"
+      ]
+    },
+    "mosa-arm64": {
+      "#import": [
+        "mosa",
+        "linux-arm64"
+      ]
+    },
+    "mosa.4.0.0": {
+      "#import": [
+        "mosa"
+      ]
+    },
+    "mosa.4.0.0-armel": {
+      "#import": [
+        "mosa.4.0.0",
+        "mosa-armel"
+      ]
+    },
+    "mosa.4.0.0-x86": {
+      "#import": [
+        "mosa.4.0.0",
+        "mosa-x86"
+      ]
+    },
+    "mosa.5.0.0": {
+      "#import": [
+        "mosa.4.0.0"
+      ]
+    },
+    "mosa.5.0.0-armel": {
+      "#import": [
+        "mosa.5.0.0",
+        "mosa.4.0.0-armel"
+      ]
+    },
+    "mosa.5.0.0-x86": {
+      "#import": [
+        "mosa.5.0.0",
+        "mosa.4.0.0-x86"
+      ]
+    },
+    "mosa.5.5.0": {
+      "#import": [
+        "mosa.5.0.0"
+      ]
+    },
+    "mosa.5.5.0-armel": {
+      "#import": [
+        "mosa.5.5.0",
+        "mosa.5.0.0-armel"
+      ]
+    },
+    "mosa.5.5.0-x86": {
+      "#import": [
+        "mosa.5.5.0",
+        "mosa.5.0.0-x86"
+      ]
+    },
+    "mosa.6.0.0": {
+      "#import": [
+        "mosa.5.5.0"
+      ]
+    },
+    "mosa.6.0.0-armel": {
+      "#import": [
+        "mosa.6.0.0",
+        "mosa.5.5.0-armel"
+      ]
+    },
+    "mosa.6.0.0-x86": {
+      "#import": [
+        "mosa.6.0.0",
+        "mosa.5.5.0-x86"
+      ]
+    },
+    "mosa.6.0.0-arm64": {
+      "#import": [
+        "mosa.6.0.0",
+        "mosa-arm64"
+      ]
+    },
+    "mosa.6.5.0": {
+      "#import": [
+        "mosa.6.0.0"
+      ]
+    },
+    "mosa.6.5.0-armel": {
+      "#import": [
+        "mosa.6.5.0",
+        "mosa.6.0.0-armel"
+      ]
+    },
+    "mosa.6.5.0-x86": {
+      "#import": [
+        "mosa.6.5.0",
+        "mosa.6.0.0-x86"
+      ]
+    },
+    "mosa.6.5.0-arm64": {
+      "#import": [
+        "mosa.6.5.0",
+        "mosa.6.0.0-arm64"
+      ]
+    },
+    "mosa.7.0.0": {
+      "#import": [
+        "mosa.6.5.0"
+      ]
+    },
+    "mosa.7.0.0-armel": {
+      "#import": [
+        "mosa.7.0.0",
+        "mosa.6.5.0-armel"
+      ]
+    },
+    "mosa.7.0.0-x86": {
+      "#import": [
+        "mosa.7.0.0",
+        "mosa.6.5.0-x86"
+      ]
+    },
+    "mosa.7.0.0-arm64": {
+      "#import": [
+        "mosa.7.0.0",
+        "mosa.6.5.0-arm64"
+      ]
+    }
+  }
+}

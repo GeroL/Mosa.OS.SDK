@@ -2,7 +2,7 @@
 ***********************************************************************************************
 GenerateWix.proj
 
-This project file is used to generate the Samsung.NET.Workload.Tizen.wix file for building the
+This project file is used to generate the Mosa.OS.Sdk.Workload.wix file for building the
 MSI installer.
 ***********************************************************************************************
 -->
@@ -12,7 +12,7 @@ MSI installer.
     <MakeDir Directories="$([System.IO.Path]::GetDirectoryName ($(DestinationFile)))" />
     <GenerateWixFile
       MSIVersion="$(MSIVersion)"
-      SourceFile="$(MSBuildThisFileDirectory)Samsung.NET.Workload.Tizen.in.wix"
+      SourceFile="$(MSBuildThisFileDirectory)Mosa.OS.Sdk.Workload.wix"
       DestinationFile="$(DestinationFile)"
       SourceDirectory="$(SourceDirectory)"
       />

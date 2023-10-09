@@ -34,7 +34,7 @@ public static class MauiProgram
             }));
 #endif
         });
-#if TIZEN
+#if MOSA
         builder.UseMauiCompatibility();
 #endif
 

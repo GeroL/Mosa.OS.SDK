@@ -1,5 +1,5 @@
 ﻿
-namespace Microsoft.NetConf2021.Maui.Platforms.Tizen;
+namespace Microsoft.NetConf2021.Maui.Platforms.Mosa;
 
 public class AudioService : IAudioService
 {

@@ -34,18 +34,18 @@ $(WORKLOAD_PACKS_OUTDIR)/$(1)$(3).$(2).nupkg: $(DOTNET)
 		@$(DOTNET) pack --nologo $(TOP)/build/$(1).proj \
 			-p:Configuration=Release \
 			-p:IncludeSymbols=False \
-			-p:TizenPackVersion=$(2) \
-			-p:TizenVersionHash=$(CURRENT_HASH) \
+			-p:MosaPackVersion=$(2) \
+			-p:MosaVersionHash=$(CURRENT_HASH) \
 			-p:DotNetPreviewVersionBand=$(4)
 
 NUPKG_TARGETS += $(WORKLOAD_PACKS_OUTDIR)/$(1)$(3).$(2).nupkg
 endef
 
-$(eval $(call CreateNuGetPkgs,Samsung.NET.Sdk.Tizen,$(TIZEN_WORKLOAD_VERSION_FULL),.Manifest-$(DOTNET_VERSION_BAND),$(DOTNET_VERSION_BAND)))
-$(eval $(call CreateNuGetPkgs,Samsung.Tizen.Sdk,$(TIZEN_WORKLOAD_VERSION_FULL)))
-$(eval $(call CreateNuGetPkgs,Samsung.Tizen.Ref,$(TIZEN_WORKLOAD_VERSION_FULL)))
-$(eval $(call CreateNuGetPkgs,Samsung.Tizen.Templates,$(TIZEN_WORKLOAD_VERSION_FULL)))
-$(eval $(call CreateNuGetPkgs,Samsung.NETCore.App.Runtime,$(TIZEN_WORKLOAD_VERSION_FULL),.tizen))
+$(eval $(call CreateNuGetPkgs,Mosa.NET.Sdk.Mosa,$(MOSA_WORKLOAD_VERSION_FULL),.Manifest-$(DOTNET_VERSION_BAND),$(DOTNET_VERSION_BAND)))
+$(eval $(call CreateNuGetPkgs,Mosa.OS.Sdk,$(MOSA_WORKLOAD_VERSION_FULL)))
+$(eval $(call CreateNuGetPkgs,Mosa.OS.Ref,$(MOSA_WORKLOAD_VERSION_FULL)))
+$(eval $(call CreateNuGetPkgs,Mosa.OS.Templates,$(MOSA_WORKLOAD_VERSION_FULL)))
+$(eval $(call CreateNuGetPkgs,Mosa.NETCore.App.Runtime,$(MOSA_WORKLOAD_VERSION_FULL),.mosa))
 
 .PHONY: packs
 packs: $(NUPKG_TARGETS)
@@ -54,10 +54,10 @@ packs: $(NUPKG_TARGETS)
 $(TMPDIR)/.stamp-install-workload: | $(DOTNET_MANIFESTS_DESTDIR)
 	@cp -f \
 		$(TOP)/LICENSE \
-		$(TOP)/src/Samsung.NET.Sdk.Tizen/WorkloadManifest.targets \
+		$(TOP)/src/Mosa.NET.Sdk.Mosa/WorkloadManifest.targets \
 		$(WORKLOAD_PACKS_OUTDIR)/workload-manifest/WorkloadManifest.json \
 		$(DOTNET_MANIFESTS_DESTDIR)
-	@$(DOTNET) workload install tizen --skip-manifest-update \
+	@$(DOTNET) workload install mosa --skip-manifest-update \
 		--source $(WORKLOAD_PACKS_OUTDIR) --temp-dir=$(TMPDIR)
 	@touch $@
 
@@ -68,45 +68,45 @@ install: packs $(TMPDIR)/.stamp-install-workload
 # Uninstall workload from the dotnet sdk
 .PHONY: uninstall
 uninstall:
-	@$(DOTNET) workload uninstall tizen
+	@$(DOTNET) workload uninstall mosa
 	@rm -f $(TMPDIR)/.stamp-install-workload
 
 # Create MSI windows installer
 define CreateMsi
-$(WORKLOAD_MSI_OUTDIR)/Samsung.NET.Workload.Tizen.$(1).wix: | $(TMPDIR)/msi
+$(WORKLOAD_MSI_OUTDIR)/Mosa.OS.SDK.Workload.$(1).wix: | $(TMPDIR)/msi
 	@$(DOTNET) msbuild --nologo $(TOP)/build/GenerateWixFile.proj \
 									-t:Generate \
-									-p:MSIVersion=$(TIZEN_WORKLOAD_VERSION_FULL) \
+									-p:MSIVersion=$(MOSA_WORKLOAD_VERSION_FULL) \
 									-p:SourceDirectory=$(TMPDIR)/msi \
 									-p:DestinationFile="$$@"
 
-$(WORKLOAD_MSI_OUTDIR)/Samsung.NET.Workload.Tizen.$(1).msi: $(WORKLOAD_MSI_OUTDIR)/Samsung.NET.Workload.Tizen.$(1).wix
+$(WORKLOAD_MSI_OUTDIR)/Mosa.OS.SDK.Workload.$(1).msi: $(WORKLOAD_MSI_OUTDIR)/Mosa.OS.SDK.Workload.$(1).wix
 	@wixl -o "$$@" "$$<" -a x64 -v
 
-MSI_TARGET := $(WORKLOAD_MSI_OUTDIR)/Samsung.NET.Workload.Tizen.$(1).msi
+MSI_TARGET := $(WORKLOAD_MSI_OUTDIR)/Mosa.OS.SDK.Workload.$(1).msi
 endef
 
 $(TMPDIR)/msi: install
 	@mkdir -p $@/sdk-manifests/$(DOTNET_VERSION_BAND)
 	@cp -fr $(DOTNET_MANIFESTS_DESTDIR) $@/sdk-manifests/$(DOTNET_VERSION_BAND)
 	@mkdir -p $@/packs
-	@cp -fr $(DOTNET_DESTDIR)/packs/Samsung.Tizen.Sdk $@/packs
-	@cp -fr $(DOTNET_DESTDIR)/packs/Samsung.Tizen.Ref $@/packs
-	@cp -fr $(DOTNET_DESTDIR)/packs/Samsung.NETCore.App.Runtime.* $@/packs
+	@cp -fr $(DOTNET_DESTDIR)/packs/Mosa.OS.Sdk $@/packs
+	@cp -fr $(DOTNET_DESTDIR)/packs/Mosa.OS.Ref $@/packs
+	@cp -fr $(DOTNET_DESTDIR)/packs/Mosa.NETCore.App.Runtime.* $@/packs
 	@mkdir -p $@/template-packs
-	@cp -f $(DOTNET_DESTDIR)/template-packs/samsung.tizen.templates.*.nupkg $@/template-packs
+	@cp -f $(DOTNET_DESTDIR)/template-packs/mosa.os.templates.*.nupkg $@/template-packs
 
-$(eval $(call CreateMsi,$(TIZEN_WORKLOAD_VERSION_FULL)))
+$(eval $(call CreateMsi,$(MOSA_WORKLOAD_VERSION_FULL)))
 
 msi: $(MSI_TARGET)
 	@rm -fr $(TMPDIR)
 
-# Test 'tizen' workload
+# Test 'mosa' workload
 .PHONY: test
 test: install
 	@rm -fr $(TMPDIR)/test
 	@mkdir -p $(TMPDIR)/test
-	@$(DOTNET) new tizen --output $(TMPDIR)/test
+	@$(DOTNET) new mosa --output $(TMPDIR)/test
 	@$(DOTNET) build $(TMPDIR)/test
 
 

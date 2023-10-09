@@ -1,7 +1,7 @@
 <Project>
   <!--
     Workload version:
-    * The first two numbers represent the major and minor version of the Tizen OS.
+    * The first two numbers represent the major and minor version of the Mosa OS.
     * The third number is the workload release count.
     * However, the first digit of the third number starts at 101.
 
@@ -15,18 +15,18 @@
        example: -preview.3.100+sha12345
   -->
   <PropertyGroup>
-    <TizenWorkloadVersion>7.0.119</TizenWorkloadVersion>
+    <MosaWorkloadVersion>7.0.119</MosaWorkloadVersion>
   </PropertyGroup>
 
   <!-- 
-    TizenFX API version:
+    MosaFX API version:
     * The first number represents the API Level.
     * The sencond and third numbers represents the reserved version.
     * The fourth number represents the build number.
-    This version is used to generate Samsung.Tizen.Ref package.
+    This version is used to generate Mosa.OS.Ref package.
   -->
   <PropertyGroup>
-    <TizenFXVersion>10.0.0.17508</TizenFXVersion>
+    <MosaFXVersion>10.0.0.17508</MosaFXVersion>
   </PropertyGroup>
 
   <!--

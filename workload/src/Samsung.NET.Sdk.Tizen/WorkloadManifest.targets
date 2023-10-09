@@ -1,7 +1,0 @@
-<Project>
-  <Import Project="Sdk.targets" Sdk="Samsung.Tizen.Sdk" Condition="'$(TargetPlatformIdentifier)' == 'tizen'" />
-
-  <ItemGroup Condition=" '$(TargetFrameworkIdentifier)' == '.NETCoreApp' and $([MSBuild]::VersionGreaterThanOrEquals($(TargetFrameworkVersion), '6.0')) ">
-    <SdkSupportedTargetPlatformIdentifier Include="tizen" DisplayName="Tizen" />
-  </ItemGroup>
-</Project>

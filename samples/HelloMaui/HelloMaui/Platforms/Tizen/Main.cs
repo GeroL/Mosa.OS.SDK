@@ -1,8 +1,8 @@
 using System;
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
-using DeviceInfo = Tizen.UIExtensions.Common.DeviceInfo;
-using DisplayResolutionUnit = Tizen.UIExtensions.Common.DisplayResolutionUnit;
+using DeviceInfo = Mosa.UIExtensions.Common.DeviceInfo;
+using DisplayResolutionUnit = Mosa.UIExtensions.Common.DisplayResolutionUnit;
 
 namespace HelloMaui;
 

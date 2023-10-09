@@ -1,7 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net6.0-tizen7.0</TargetFramework>
-    <RootNamespace Condition="'$(name)' != '$(name{-VALUE-FORMS-}safe_namespace)'">TizenApp1</RootNamespace>
-    <OutputType>Exe</OutputType>
-  </PropertyGroup>
-</Project>
