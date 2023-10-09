@@ -14,27 +14,7 @@ DOTNET_DEFAULT_PATH_MACOS="/usr/local/share/dotnet"
 UPDATE_ALL_WORKLOADS="false"
 
 LatestVersionMap=(
-    "$MANIFEST_BASE_NAME-6.0.100=7.0.101"
-    "$MANIFEST_BASE_NAME-6.0.200=7.0.100-preview.13.6"
-    "$MANIFEST_BASE_NAME-6.0.300=7.0.304"
-    "$MANIFEST_BASE_NAME-6.0.400=7.0.119"
-    "$MANIFEST_BASE_NAME-7.0.100-preview.6=7.0.100-preview.6.14"
-    "$MANIFEST_BASE_NAME-7.0.100-preview.7=7.0.100-preview.7.20"
-    "$MANIFEST_BASE_NAME-7.0.100-rc.1=7.0.100-rc.1.22"
-    "$MANIFEST_BASE_NAME-7.0.100-rc.2=7.0.100-rc.2.24"
-    "$MANIFEST_BASE_NAME-7.0.100=7.0.103"
-    "$MANIFEST_BASE_NAME-7.0.200=7.0.105"
-    "$MANIFEST_BASE_NAME-7.0.300=7.0.120"
-    "$MANIFEST_BASE_NAME-7.0.400=7.0.123"
-    "$MANIFEST_BASE_NAME-8.0.100-alpha.1=7.0.104"
-    "$MANIFEST_BASE_NAME-8.0.100-preview.2=7.0.106"
-    "$MANIFEST_BASE_NAME-8.0.100-preview.3=7.0.107"
-    "$MANIFEST_BASE_NAME-8.0.100-preview.4=7.0.108"
-    "$MANIFEST_BASE_NAME-8.0.100-preview.5=7.0.110"
-    "$MANIFEST_BASE_NAME-8.0.100-preview.6=7.0.121"
-    "$MANIFEST_BASE_NAME-8.0.100-preview.7=7.0.122"
-    "$MANIFEST_BASE_NAME-8.0.100-rc.1=7.0.124"
-    "$MANIFEST_BASE_NAME-8.0.100-rc.2=7.0.125"
+    "$MANIFEST_BASE_NAME-8.0.100-rc.1=1.0.0"
     )
 
 while [ $# -ne 0 ]; do
@@ -224,13 +204,13 @@ function install_mosaworkload() {
 }
 
 if [[ "$UPDATE_ALL_WORKLOADS" == "true" ]]; then
-    INSTALLED_DOTNET_SDKS=$($DOTNET_COMMAND --list-sdks | sed -n '/^6\|^7/p' | sed 's/ \[.*//g')
+    INSTALLED_DOTNET_SDKS=$($DOTNET_COMMAND --list-sdks | sed -n '/^8\|^8/p' | sed 's/ \[.*//g')
 else
     INSTALLED_DOTNET_SDKS=$($DOTNET_COMMAND --version)
 fi
 
 if [ -z "$INSTALLED_DOTNET_SDKS" ]; then
-    echo ".NET SDK version 6 or later is required to install Mosa Workload."
+    echo ".NET SDK version 8 or later is required to install Mosa Workload."
 else
     for DOTNET_SDK in $INSTALLED_DOTNET_SDKS; do
         echo "Check Mosa Workload for sdk $DOTNET_SDK."

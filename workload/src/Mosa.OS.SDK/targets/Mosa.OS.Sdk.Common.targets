@@ -25,7 +25,7 @@ Copyright (c) Samsung All rights reserved.
   <PropertyGroup>
     <_MosaSdkDefaultBaseDirectory Condition="'$(HOME)' != ''">$(HOME)</_MosaSdkDefaultBaseDirectory>
     <_MosaSdkDefaultBaseDirectory Condition="'$(HOME)' == ''">$(HOMEDRIVE)</_MosaSdkDefaultBaseDirectory>
-    <MosaSdkDirectory Condition="'$(MosaSdkDirectory)' == ''">$(_MosaSdkDefaultBaseDirectory)\mosa-studio\</MosaSdkDirectory>
+    <MosaSdkDirectory Condition="'$(MosaSdkDirectory)' == ''">$(_MosaSdkDefaultBaseDirectory)\mosa\</MosaSdkDirectory>
     <SdbToolPath Condition="'$(SdbToolPath)' == ''">$(MosaSdkDirectory)tools\</SdbToolPath>
     <SdbToolPath Condition="'$(SdbToolPath)' != ''">$([MSBuild]::EnsureTrailingSlash('$(SdbToolPath)'))</SdbToolPath>
     <SdbToolExe Condition="'$(SdbToolExe)' == '' And '$(HostOS)' != 'Windows'">sdb</SdbToolExe>

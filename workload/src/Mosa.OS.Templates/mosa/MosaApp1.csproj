@@ -1,0 +1,7 @@
+<Project Sdk="Mosa.OS.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-mosa1.0</TargetFramework>
+    <RootNamespace Condition="'$(name)' != '$(name{-VALUE-FORMS-}safe_namespace)'">MosaApp1</RootNamespace>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+</Project>

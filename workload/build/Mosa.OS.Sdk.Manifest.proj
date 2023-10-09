@@ -14,7 +14,7 @@ workload manifest pack containing information about the Mosa .NET workload.
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>Mosa.NET.Sdk.Mosa.Manifest-$(DotNetPreviewVersionBand)</PackageId>
+    <PackageId>Mosa.OS.Sdk.Manifest-$(DotNetPreviewVersionBand)</PackageId>
     <Description>Mosa .NET workload manifest. Please do not reference directly.</Description>
   </PropertyGroup>
 
@@ -32,13 +32,13 @@ workload manifest pack containing information about the Mosa .NET workload.
 
     <MakeDir Directories="$([System.IO.Path]::GetDirectoryName ($(WorkloadManifestJsonPath)))" />
     <ReplaceFileContents
-        SourceFile="$(_ProjectSourceDirectory)Mosa.NET.Sdk.Mosa\WorkloadManifest.in.json"
+        SourceFile="$(_ProjectSourceDirectory)Mosa.OS.Sdk.Manifest\WorkloadManifest.in.json"
         DestinationFile="$(WorkloadManifestJsonPath)"
         Replacements="@MOSA_WORKLOAD_VERSION@=$(MosaPackVersion);">
     </ReplaceFileContents>
 
     <ItemGroup>
-      <_PackageFiles Include="$(_ProjectSourceDirectory)Mosa.NET.Sdk.Mosa\WorkloadManifest.targets" PackagePath="data" />
+      <_PackageFiles Include="$(_ProjectSourceDirectory)Mosa.OS.Sdk.Manifest\WorkloadManifest.targets" PackagePath="data" />
       <_PackageFiles Include="$(WorkloadManifestJsonPath)" PackagePath="data" />
     </ItemGroup>
   </Target>

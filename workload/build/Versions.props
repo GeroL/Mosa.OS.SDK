@@ -15,7 +15,7 @@
        example: -preview.3.100+sha12345
   -->
   <PropertyGroup>
-    <MosaWorkloadVersion>7.0.119</MosaWorkloadVersion>
+    <MosaWorkloadVersion>1.0.0</MosaWorkloadVersion>
   </PropertyGroup>
 
   <!-- 
@@ -26,14 +26,14 @@
     This version is used to generate Mosa.OS.Ref package.
   -->
   <PropertyGroup>
-    <MosaFXVersion>10.0.0.17508</MosaFXVersion>
+    <MosaFXVersion>1.0.0.0</MosaFXVersion>
   </PropertyGroup>
 
   <!--
     Dotnet SDK versions for building the workload.
    -->
   <PropertyGroup>
-    <MicrosoftDotnetSdkInternalPackageVersion>6.0.408</MicrosoftDotnetSdkInternalPackageVersion>
-    <MicrosoftDotNetBuildTasksFeedPackageVersion>6.0.0-beta.21212.6</MicrosoftDotNetBuildTasksFeedPackageVersion>
+    <MicrosoftDotnetSdkInternalPackageVersion>8.0.100-rc.1</MicrosoftDotnetSdkInternalPackageVersion>
+    <MicrosoftDotNetBuildTasksFeedPackageVersion>8.0.100-rc.1.23463.5</MicrosoftDotNetBuildTasksFeedPackageVersion>
   </PropertyGroup>
 </Project>

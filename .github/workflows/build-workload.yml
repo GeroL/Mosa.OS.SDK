@@ -35,7 +35,7 @@ jobs:
 
     - uses: actions/upload-artifact@v2
       with:
-        name: tizen-workload-pkgs
+        name: mosa-workload-pkgs
         path: ./workload/out/nuget-unsigned/*.nupkg
 
 
@@ -47,24 +47,24 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 8.0.x
 
     - name: Install Github Package Registry Tool
       run: dotnet tool install --global --no-cache gpr
 
     - uses: actions/download-artifact@v2
       with:
-        name: tizen-workload-pkgs
+        name: mosa-workload-pkgs
 
     - name: Push packages to GPR
       run: |
         gpr push --api-key ${{ secrets.GITHUB_TOKEN }} \
                  --repository ${{ github.repository }} \
-                 --retries 3 Samsung.*.nupkg
+                 --retries 3 Mosa.*.nupkg
 
     - name: Push packages to MyGet
       run: |
-        dotnet nuget push Samsung.*.nupkg \
+        dotnet nuget push Mosa.*.nupkg \
                       -k ${{ secrets.MYGET_APIKEY }} \
                       -s https://tizen.myget.org/F/dotnet/api/v2/package \
                       -t 3000

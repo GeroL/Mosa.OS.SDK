@@ -1,0 +1,32 @@
+{
+  "version": "@MOSA_WORKLOAD_VERSION@",
+  "workloads": {
+    "mosa": {
+      "description": ".NET SDK Workload for building Mosa applications.",
+      "packs": [
+        "Mosa.OS.Sdk",
+        "Mosa.OS.Ref",
+        "Mosa.OS.Templates",
+        "Mosa.OS.Runtime"
+      ]
+    }
+  },
+  "packs": {
+    "Mosa.OS.Sdk": {
+      "kind": "sdk",
+      "version": "@MOSA_WORKLOAD_VERSION@"
+    },
+    "Mosa.OS.Ref": {
+      "kind": "framework",
+      "version": "@MOSA_WORKLOAD_VERSION@"
+    },
+    "Mosa.OS.Templates": {
+      "kind": "template",
+      "version": "@MOSA_WORKLOAD_VERSION@"
+    },
+    "Mosa.OS.Runtime": {
+      "kind": "framework",
+      "version": "@MOSA_WORKLOAD_VERSION@"
+    }
+  }
+}

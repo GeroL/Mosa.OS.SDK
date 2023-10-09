@@ -10,7 +10,7 @@ core workload sdk pack imported by the Mosa.NET.Sdk.Mosa.
 
   <PropertyGroup>
     <PackageId>Mosa.OS.Sdk</PackageId>
-    <Description>The MSBuild targets for buliding Mosa .NET projects</Description>
+    <Description>The MSBuild targets for building Mosa .NET projects</Description>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -37,19 +37,19 @@ core workload sdk pack imported by the Mosa.NET.Sdk.Mosa.
   <Target Name="_GetBuildTasksAssets">
     <MSBuild
       Targets="Restore"
-      Projects="$(_ProjectSourceDirectory)Mosa.OS.Build.Tasks\Mosa.OS.Build.Tasks.csproj"
+      Projects="$(_ProjectSourceDirectory)Mosa.OS.SDK.Build.Tasks\Mosa.OS.Build.Tasks.csproj"
       Properties="Configuration=$(Configuration)"
     />
     <MSBuild
-      Projects="$(_ProjectSourceDirectory)Mosa.OS.Build.Tasks\Mosa.OS.Build.Tasks.csproj"
+      Projects="$(_ProjectSourceDirectory)Mosa.OS.SDK.Build.Tasks\Mosa.OS.Build.Tasks.csproj"
       Properties="Configuration=$(Configuration)"
     />
 
     <PropertyGroup>
-      <BuildTasksOutputPath>$(_ProjectSourceDirectory)Mosa.OS.Build.Tasks\bin\$(Configuration)\netstandard2.0\</BuildTasksOutputPath>
+      <BuildTasksOutputPath>$(_ProjectSourceDirectory)Mosa.OS.SDK.Build.Tasks\bin\$(Configuration)\netstandard2.0\</BuildTasksOutputPath>
     </PropertyGroup>
     <ItemGroup>
-      <_PackageFiles Include="$(BuildTasksOutputPath)Mosa.OS.Build.Tasks.dll" PackagePath="tools" />
+      <_PackageFiles Include="$(BuildTasksOutputPath)Mosa.OS.SDK.Build.Tasks.dll" PackagePath="tools" />
       <_PackageFiles Include="$(BuildTasksOutputPath)BouncyCastle.Crypto.dll" PackagePath="tools" />
     </ItemGroup>
   </Target>

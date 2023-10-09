@@ -11,7 +11,7 @@
     <Configuration>Release</Configuration>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageType>DotnetPlatform</PackageType>
-    <Authors>Samsung Electronics</Authors>
+    <Authors>Mosa</Authors>
     <OutputPath>$(_ProjectRootDirectory)out\nuget-unsigned\</OutputPath>
     <GenerateDependencyFile>false</GenerateDependencyFile>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>

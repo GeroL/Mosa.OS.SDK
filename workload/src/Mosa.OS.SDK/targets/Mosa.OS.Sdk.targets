@@ -31,12 +31,12 @@ Copyright (c) Samsung All rights reserved.
   <ItemGroup>
     <FrameworkReference Update="Microsoft.NETCore.App" RuntimePackLabels="Mosa" />
     <KnownRuntimePack Remove="Microsoft.NETCore.App" />
-    <KnownRuntimePack Include="Microsoft.NETCore.App"
+    <KnownRuntimePack Include="Mosa.OS"
                       TargetFramework="net8.0"
-                      RuntimeFrameworkName="Microsoft.NETCore.App"
+                      RuntimeFrameworkName="Mosa.OS"
                       LatestRuntimeFrameworkVersion="**FromWorkload**"
-                      RuntimePackNamePatterns="Mosa.NETCore.App.Runtime.**RID**"
-                      RuntimePackRuntimeIdentifiers="mosa"
+                      RuntimePackNamePatterns="Mosa.OS.Runtime.**RID**"
+                      RuntimePackRuntimeIdentifiers="mosa;mosa-arm;mosa-x86;mosa-x64"
                       RuntimePackLabels="Mosa"
                       />
   </ItemGroup>

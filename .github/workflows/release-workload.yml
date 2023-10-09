@@ -32,7 +32,7 @@ jobs:
 
     - name: Push packages to NuGet.org
       run: |
-        dotnet nuget push ./workload/out/nuget-unsigned/Samsung.*.nupkg \
+        dotnet nuget push ./workload/out/nuget-unsigned/Mosa.*.nupkg \
                       -k ${{ secrets.NUGET_APIKEY }} \
                       -s https://api.nuget.org/v3/index.json \
                       -t 3000

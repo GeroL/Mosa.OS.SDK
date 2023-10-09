@@ -509,7 +509,7 @@ Copyright (c) Samsung All rights reserved.
                             MosaManifestMergeAndCopy"
           Inputs="@(MosaResolvedFileToTpk)"
           Outputs="@(MosaResolvedFileToTpk->'$(MosaPackageOutputPath)%(MosaTpkSubPath)')">
-    <Copy SourceFiles="@(MosaResolvedFileToTpk)"
+    <!--<Copy SourceFiles="@(MosaResolvedFileToTpk)"
           DestinationFiles="@(MosaResolvedFileToTpk->'$(MosaPackageOutputPath)%(MosaTpkSubPath)')"
           Condition="'%(MosaResolvedFileToTpk.MosaTpkIsManifest)' != 'true' "
           OverwriteReadOnlyFiles="true"
@@ -517,7 +517,7 @@ Copyright (c) Samsung All rights reserved.
       <Output TaskParameter="DestinationFiles" ItemName="TpkFileWrites" />
     </Copy>
 
-    <Delete Files="$(SignedTpkFile)" TreatErrorsAsWarnings="true" />
+    <Delete Files="$(SignedTpkFile)" TreatErrorsAsWarnings="true" />-->
   </Target>
 
   <!--
@@ -536,22 +536,22 @@ Copyright (c) Samsung All rights reserved.
           Outputs="$(SignedTpkFile)"
           Condition="'$(WebProject)' != 'true'">
 
-    <CallTarget Targets="MosaCheckExecFileExist" />
+    <!--<CallTarget Targets="MosaCheckExecFileExist" />
 
     <Error Condition="!Exists('$(AuthorPath)') OR !Exists('$(DistributorPath)')"
-           Text="Invalid Tpk Signing resource ... Please check the Properties &#60;AuthorPath&#62; &#61; $(AuthorPath), &#60;DistributorPath&#62; &#61; $(DistributorPath)"/>
+           Text="Invalid Tpk Signing resource ... Please check the Properties &#60;AuthorPath&#62; &#61; $(AuthorPath), &#60;DistributorPath&#62; &#61; $(DistributorPath)"/>-->
 
-    <Sign RootDir="$(MosaPackageOutputPath)"
+    <!--<Sign RootDir="$(MosaPackageOutputPath)"
           AuthorFile="$(AuthorPath)"
           AuthorPassword="$(AuthorPass)"
           DistFile="$(DistributorPath)"
           DistPassword="$(DistributorPass)"
           DistFile2="$(DistributorPath2)"
           DistPassword2="$(DistributorPass2)"
-          OutputSignedTpk="$(SignedTpkFile)" />
+          OutputSignedTpk="$(SignedTpkFile)" />-->
 
-    <Message Text="Successfully created tpk package : $(SignedTpkFile)" Condition="Exists('$(SignedTpkFile)')"/>
-    <Error Text="Failed to create tpk package : $(SignedTpkFile)" Importance="high" Condition="!Exists('$(SignedTpkFile)')"/>
+    <!--<Message Text="Successfully created tpk package : $(SignedTpkFile)" Condition="Exists('$(SignedTpkFile)')"/>
+    <Error Text="Failed to create tpk package : $(SignedTpkFile)" Importance="high" Condition="!Exists('$(SignedTpkFile)')"/>-->
   </Target>
 
   <!--
@@ -562,9 +562,9 @@ Copyright (c) Samsung All rights reserved.
   ===========================================================================
   -->
   <Target Name="MosaPrintTpkOutput" AfterTargets="_MosaTpkSign">
-    <Message Condition="Exists('$(SignedTpkFile)')"
+    <!--<Message Condition="Exists('$(SignedTpkFile)')"
              Importance="high"
-             Text="$(MSBuildProjectName) -> $([System.IO.Path]::GetFullPath('$(SignedTpkFile)'))" />
+             Text="$(MSBuildProjectName) -> $([System.IO.Path]::GetFullPath('$(SignedTpkFile)'))" />-->
   </Target>
 
   <!--
@@ -575,7 +575,7 @@ Copyright (c) Samsung All rights reserved.
   ===========================================================================
   -->
   <Target Name="MosaPrepareCertificate">
-    <PropertyGroup>
+    <!--<PropertyGroup>
       <MosaDefaultAuthorPath>$(MSBuildThisFileDirectory)..\certificate\author_test.p12</MosaDefaultAuthorPath>
       <MosaDefaultAuthorPass>author_test</MosaDefaultAuthorPass>
       <MosaDefaultDistributorPath>$(MSBuildThisFileDirectory)..\certificate\mosa-distributor-signer.p12</MosaDefaultDistributorPath>
@@ -606,17 +606,17 @@ Copyright (c) Samsung All rights reserved.
              Importance="high"
              Text="$(MSBuildProjectName) is signed with Default Certificates!" />
 
-    <!--check author file exist -->
+    --><!--check author file exist --><!--
     <Error Code="TS0003"
            File="$(MSBuildProjectFile)"
            Text="The author certificate file '$(AuthorPath)' was not found."
            Condition="!Exists('$(AuthorPath)')" />
 
-    <!--check distributor file exist -->
+    --><!--check distributor file exist --><!--
     <Error Code="TS0004"
            File="$(MSBuildProjectFile)"
            Text="The distributor certificate file '$(DistributorPath)' was not found."
-           Condition="!Exists('$(DistributorPath)')" />
+           Condition="!Exists('$(DistributorPath)')" />-->
 
   </Target>
 
@@ -630,7 +630,7 @@ Copyright (c) Samsung All rights reserved.
   -->
   <Target Name="MosaCheckCertificateChanged">
     <!-- Check the Author Certificate Info changed & Save Info -->
-    <ReadLinesFromFile File="$(IntermediateOutputPath)MosaAuthorTimeStamp">
+    <!--<ReadLinesFromFile File="$(IntermediateOutputPath)MosaAuthorTimeStamp">
       <Output TaskParameter="Lines" ItemName="SignedAuthorHash" />
     </ReadLinesFromFile>
     <PropertyGroup>
@@ -642,7 +642,7 @@ Copyright (c) Samsung All rights reserved.
                       Lines="$(AuthorHash)"
                       Overwrite="true" />
 
-    <!-- Check the Distributor Certificate Info changed & Save Info -->
+    --><!-- Check the Distributor Certificate Info changed & Save Info --><!--
     <ReadLinesFromFile File="$(IntermediateOutputPath)MosaDistributorTimeStamp">
       <Output TaskParameter="Lines" ItemName="SignedDistributorHash" />
     </ReadLinesFromFile>
@@ -653,7 +653,7 @@ Copyright (c) Samsung All rights reserved.
     <WriteLinesToFile Condition="'$(SignedDistributorHash)' != '$(DistributorHash)'"
                       File="$(IntermediateOutputPath)MosaDistributorTimeStamp"
                       Lines="$(DistributorHash)"
-                      Overwrite="true" />
+                      Overwrite="true" />-->
   </Target>
 
 </Project>

@@ -41,11 +41,11 @@ $(WORKLOAD_PACKS_OUTDIR)/$(1)$(3).$(2).nupkg: $(DOTNET)
 NUPKG_TARGETS += $(WORKLOAD_PACKS_OUTDIR)/$(1)$(3).$(2).nupkg
 endef
 
-$(eval $(call CreateNuGetPkgs,Mosa.NET.Sdk.Mosa,$(MOSA_WORKLOAD_VERSION_FULL),.Manifest-$(DOTNET_VERSION_BAND),$(DOTNET_VERSION_BAND)))
+$(eval $(call CreateNuGetPkgs,Mosa.OS.Sdk.Manifest,$(MOSA_WORKLOAD_VERSION_FULL),.Manifest-$(DOTNET_VERSION_BAND),$(DOTNET_VERSION_BAND)))
 $(eval $(call CreateNuGetPkgs,Mosa.OS.Sdk,$(MOSA_WORKLOAD_VERSION_FULL)))
 $(eval $(call CreateNuGetPkgs,Mosa.OS.Ref,$(MOSA_WORKLOAD_VERSION_FULL)))
 $(eval $(call CreateNuGetPkgs,Mosa.OS.Templates,$(MOSA_WORKLOAD_VERSION_FULL)))
-$(eval $(call CreateNuGetPkgs,Mosa.NETCore.App.Runtime,$(MOSA_WORKLOAD_VERSION_FULL),.mosa))
+$(eval $(call CreateNuGetPkgs,Mosa.OS.Runtime,$(MOSA_WORKLOAD_VERSION_FULL),.mosa))
 
 .PHONY: packs
 packs: $(NUPKG_TARGETS)
@@ -54,7 +54,7 @@ packs: $(NUPKG_TARGETS)
 $(TMPDIR)/.stamp-install-workload: | $(DOTNET_MANIFESTS_DESTDIR)
 	@cp -f \
 		$(TOP)/LICENSE \
-		$(TOP)/src/Mosa.NET.Sdk.Mosa/WorkloadManifest.targets \
+		$(TOP)/src/Mosa.OS.Sdk.Manifest/WorkloadManifest.targets \
 		$(WORKLOAD_PACKS_OUTDIR)/workload-manifest/WorkloadManifest.json \
 		$(DOTNET_MANIFESTS_DESTDIR)
 	@$(DOTNET) workload install mosa --skip-manifest-update \
@@ -73,17 +73,17 @@ uninstall:
 
 # Create MSI windows installer
 define CreateMsi
-$(WORKLOAD_MSI_OUTDIR)/Mosa.OS.SDK.Workload.$(1).wix: | $(TMPDIR)/msi
+$(WORKLOAD_MSI_OUTDIR)/Mosa.OS.Sdk.Workload.wix: | $(TMPDIR)/msi
 	@$(DOTNET) msbuild --nologo $(TOP)/build/GenerateWixFile.proj \
 									-t:Generate \
 									-p:MSIVersion=$(MOSA_WORKLOAD_VERSION_FULL) \
 									-p:SourceDirectory=$(TMPDIR)/msi \
 									-p:DestinationFile="$$@"
 
-$(WORKLOAD_MSI_OUTDIR)/Mosa.OS.SDK.Workload.$(1).msi: $(WORKLOAD_MSI_OUTDIR)/Mosa.OS.SDK.Workload.$(1).wix
+$(WORKLOAD_MSI_OUTDIR)/Mosa.OS.Sdk.Workload.msi: $(WORKLOAD_MSI_OUTDIR)/Mosa.OS.Sdk.Workload.wix
 	@wixl -o "$$@" "$$<" -a x64 -v
 
-MSI_TARGET := $(WORKLOAD_MSI_OUTDIR)/Mosa.OS.SDK.Workload.$(1).msi
+MSI_TARGET := $(WORKLOAD_MSI_OUTDIR)/Mosa.OS.Sdk.Workload.$(1).msi
 endef
 
 $(TMPDIR)/msi: install
@@ -92,9 +92,9 @@ $(TMPDIR)/msi: install
 	@mkdir -p $@/packs
 	@cp -fr $(DOTNET_DESTDIR)/packs/Mosa.OS.Sdk $@/packs
 	@cp -fr $(DOTNET_DESTDIR)/packs/Mosa.OS.Ref $@/packs
-	@cp -fr $(DOTNET_DESTDIR)/packs/Mosa.NETCore.App.Runtime.* $@/packs
+	@cp -fr $(DOTNET_DESTDIR)/packs/Mosa.OS.Runtime.* $@/packs
 	@mkdir -p $@/template-packs
-	@cp -f $(DOTNET_DESTDIR)/template-packs/mosa.os.templates.*.nupkg $@/template-packs
+	@cp -f $(DOTNET_DESTDIR)/template-packs/mosa.os.templates.nupkg $@/template-packs
 
 $(eval $(call CreateMsi,$(MOSA_WORKLOAD_VERSION_FULL)))
 

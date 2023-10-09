@@ -43,7 +43,7 @@ MSTest Test Project                           mstest          [C#],F#,VB  Test/M
 NUnit 3 Test Item                             nunit-test      [C#],F#,VB  Test/NUnit            
 NUnit 3 Test Project                          nunit           [C#],F#,VB  Test/NUnit            
 xUnit Test Project                            xunit           [C#],F#,VB  Test/xUnit            
-*Mosa .NET Application**                    *mosa*          *[C#]*      *Mosa*
+*Mosa .NET Application**                     *mosa*          *[C#]*      *Mosa*
 Razor Component                               razorcomponent  [C#]        Web/ASP.NET           
 Razor Page                                    page            [C#]        Web/ASP.NET           
 ...

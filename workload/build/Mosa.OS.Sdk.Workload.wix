@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
-  <Product Name="Mosa.NET.Workload.Mosa"
+  <Product Name="Mosa.OS.SDK.Workload"
       Id="*"
       Language="1033"
       Version="@MSIVERSION@"
-      Manufacturer="Samsung Electronics"
-      UpgradeCode="7a121d07-f5f6-44eb-91e3-0259aa83eabf">
+      Manufacturer="MOSA"
+      UpgradeCode="0c7b70c0-e5f1-42c6-9190-17e47e6a47f8">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
     <MediaTemplate EmbedCab="yes" />
-    <Feature Id="ProductFeature" Title="Mosa.NET.Workload.Mosa">
+    <Feature Id="ProductFeature" Title="Mosa.OS.SDK.Workload">
       <ComponentGroupRef Id="ProductComponents" />
     </Feature>
   </Product>
